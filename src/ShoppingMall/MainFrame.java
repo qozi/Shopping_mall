@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
 		model.TableInit(model, p1, 400, 600);
 		
 		JPanel temp = model.showData();
-		p1.add(temp).setBounds(0, 0, 50, 50);
+		p1.add(temp).setBounds(0, 0, 70, 60);
 		temp.setLocation(500, 100);
 	}
 

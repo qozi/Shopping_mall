@@ -1,5 +1,6 @@
 package ShoppingMall;
 
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.*;
@@ -54,7 +55,9 @@ public class TableOfSale extends DefaultTableModel {// ´ÓDefaultTableModel¼Ì³Ð
 	public JPanel showData() {
 		JPanel p = new JPanel();
 		p.setLayout(null);
-		p.add(new JLabel("hahahahahhah")).setBounds(0, -25, 50, 50);
+		JLabel l = new JLabel("|______");
+		l.setFont(new Font(Font.DIALOG, Font.BOLD, 50));
+		p.add(l).setBounds(0, 0, 80, 50);
 		return p;
 	}
 
