@@ -46,8 +46,9 @@ public class MainFrame extends JFrame {
 			Object[] data = { "Ñ©Àæ", "Ë®¹û", new Integer(50), new Integer(90) };
 			model.addData(data);
 		}
-		
-		model.TableInit(model, p1, 400, 600);
+
+		model.TableInit(model, p1, 400, 600,this);
+		model.dataShow(p1);
 	}
 
 	JPanel p1, p2, p3, p4;
