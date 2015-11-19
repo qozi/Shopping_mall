@@ -25,25 +25,29 @@ public class MainFrame extends JFrame {
 		setMenu();
 		setLable();
 		setTable();
-		//new ScreenSize().setCenterLocation(this);// 设置窗口在屏幕正中央出现
+		// new ScreenSize().setCenterLocation(this);// 设置窗口在屏幕正中央出现
 		ScreenSize.setCenterLocation(this);
-		//setResizable(false);// 不能拖拉改变窗体大小
+		// setResizable(false);// 不能拖拉改变窗体大小
 		setVisible(true);
 
 	}
-	
-	Vector data,row,name;
-	public void setTable(){
+
+	Vector data, row, name;
+
+	public void setTable() {
 		TableOfSale model = new TableOfSale();
-		String[] names = {"商品名称","商品种类","商品价格","商品数量"};
+		String[] names = { "商品名称", "商品种类", "商品价格", "商品数量" };
 		model.setNames(names);
-		Object[] data = {"苹果","水果",new Integer(5),new Integer(10)};
-		model.addData(data);
-		model.TableInit(model, p1, 400, 600);
+		for (int i = 0; i < 20; i++) {
+			Object[] data = { "苹果", "水果", new Integer(10), new Integer(20) };
+			model.addData(data);
+		}
+		for (int i = 0; i < 20; i++) {
+			Object[] data = { "雪梨", "水果", new Integer(50), new Integer(90) };
+			model.addData(data);
+		}
 		
-		JPanel temp = model.showData();
-		p1.add(temp).setBounds(0, 0, 70, 60);
-		temp.setLocation(500, 100);
+		model.TableInit(model, p1, 400, 600);
 	}
 
 	JPanel p1, p2, p3, p4;

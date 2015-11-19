@@ -13,9 +13,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
-	Vector<String> names = new Vector<String>();// 定义动态集合存放列名
-	Vector<Object> rows = new Vector<Object>();// 定义动态集合存放每一行的数据，定义为Object类，因为里面存放的不止一个类型
-	Vector<Vector<Object>> data = new Vector<Vector<Object>>();// 定义动态集合存放行数据
+	private Vector<String> names = new Vector<String>();// 定义动态集合存放列名
+	private Vector<Object> rows; // 定义动态集合存放每一行的数据，定义为Object类，因为里面存放的不止一个类型
+	private Vector<Vector<Object>> data = new Vector<Vector<Object>>();// 定义动态集合存放行数据
 
 	public TableOfSale() {
 		super.setDataVector(data, names);// 调用父类的构造函数，构造DefaultTableModel实例
@@ -47,18 +47,10 @@ public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
 	 */
 
 	public void addData(Object[] objects) {// 设置行数据的方法，每次添加到表格的末尾
+		rows = new Vector<Object>();// 由于Vector是线程同步的，所以每次都要新new一个Vector来储存新的数据
 		Collection<Object> c = new Vector<Object>(Arrays.asList(objects));
 		rows.addAll(c);
 		data.add(rows);
-	}
-
-	public JPanel showData() {
-		JPanel p = new JPanel();
-		p.setLayout(null);
-		JLabel l = new JLabel("|______");
-		l.setFont(new Font(Font.DIALOG, Font.BOLD, 50));
-		p.add(l).setBounds(0, 0, 80, 50);
-		return p;
 	}
 
 	class mymouceListener extends MyMouceListener {// 继承自鼠标监听接口的实现类，重写鼠标点击事件的方法
