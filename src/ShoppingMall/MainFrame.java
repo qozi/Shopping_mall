@@ -47,8 +47,36 @@ public class MainFrame extends JFrame {
 			model.addData(data);
 		}
 
-		model.TableInit(model, p1, 400, 600,this);
-		model.dataShow(p1);
+		model.TableInit(model, 400, 600, this);
+		// dataShow(p1);
+	}
+
+	JLabel l1, l2, l3, l4;
+	String saleName = "", kind = "";
+	int price = 0, number = 0;
+
+	public void dataShow(JPanel tempPanel) {
+		l1 = new JLabel("商品名称：" + saleName);
+		l2 = new JLabel("商品种类：" + kind);
+		l3 = new JLabel("商品价格：" + price);
+		l4 = new JLabel("商品数量：" + number);
+		l1.setBounds(420, 5, 100, 30);
+		l2.setBounds(420, 30, 100, 30);
+		l3.setBounds(420, 55, 100, 30);
+		l4.setBounds(420, 80, 100, 30);
+		tempPanel.add(l1);
+		tempPanel.add(l2);
+		tempPanel.add(l3);
+		tempPanel.add(l4);
+	}
+
+	public void dataShowUpdate(JPanel tempPanel) {
+		System.out.println("ok");
+		tempPanel.remove(l1);
+		tempPanel.remove(l2);
+		tempPanel.remove(l3);
+		tempPanel.remove(l4);
+		// dataShow(tempPanel);
 	}
 
 	JPanel p1, p2, p3, p4;

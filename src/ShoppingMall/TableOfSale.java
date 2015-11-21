@@ -25,41 +25,41 @@ public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
 
 	JTable table;// new一个表格组件
 
-	public void TableInit(TableOfSale tof, JPanel p, int x, int y,
-			MainFrame tempFrame) {// 初始化表格，并把表格add到p中，并定义表格的大小
+	public void TableInit(TableOfSale tof, int x, int y, MainFrame tempFrame) {// 初始化表格，并把表格add到p中，并定义表格的大小
 		table = new JTable(tof);// Table构造方法中传入DefaultTableModel实例
 		table.addMouseListener(new mymouceListener());// 为表格添加鼠标监听事件
 		JScrollPane scrollpane = new JScrollPane(table);// 为表格添加滚动条
 		scrollpane.setSize(x, y);// 设置表格大小
-		p.add(scrollpane).setBounds(0, 0, x, y);// 将表格添加到p中
+		tempFrame.p1.add(scrollpane).setBounds(0, 0, x, y);// 将表格添加到p中
 		this.tempFrame = tempFrame;
 	}
 
-	JLabel l1, l2, l3, l4;
-	String name = "", kind = "";
-	int price = 0, number = 0;
+	// JLabel l1, l2, l3, l4;
+	// String name = "", kind = "";
+	// int price = 0, number = 0;
 
-	public void dataShow(JPanel tempPanel) {
-		l1 = new JLabel("商品名称：" + name);
-		l2 = new JLabel("商品种类：" + kind);
-		l3 = new JLabel("商品价格：" + price);
-		l4 = new JLabel("商品数量：" + number);
-		l1.setBounds(420, 5, 100, 30);
-		l2.setBounds(420, 30, 100, 30);
-		l3.setBounds(420, 55, 100, 30);
-		l4.setBounds(420, 80, 100, 30);
-		tempPanel.add(l1);
-		tempPanel.add(l2);
-		tempPanel.add(l3);
-		tempPanel.add(l4);
-	}
-	public void dataShowUpdate(JPanel tempPanel){
-		tempPanel.remove(l1);
-		tempPanel.remove(l2);
-		tempPanel.remove(l3);
-		tempPanel.remove(l4);
-		dataShow(tempPanel);
-	}
+	// public void dataShow(JPanel tempPanel) {
+	// l1 = new JLabel("商品名称：" + name);
+	// l2 = new JLabel("商品种类：" + kind);
+	// l3 = new JLabel("商品价格：" + price);
+	// l4 = new JLabel("商品数量：" + number);
+	// l1.setBounds(420, 5, 100, 30);
+	// l2.setBounds(420, 30, 100, 30);
+	// l3.setBounds(420, 55, 100, 30);
+	// l4.setBounds(420, 80, 100, 30);
+	// tempPanel.add(l1);
+	// tempPanel.add(l2);
+	// tempPanel.add(l3);
+	// tempPanel.add(l4);
+	// }
+	// public void dataShowUpdate(JPanel tempPanel){
+	// System.out.println("ok");
+	// tempPanel.remove(l1);
+	// tempPanel.remove(l2);
+	// tempPanel.remove(l3);
+	// tempPanel.remove(l4);
+	// //dataShow(tempPanel);
+	// }
 
 	public void setNames(String[] strings) {// 设置表头名称的方法，传入一个String的数组
 		Collection<String> c = new ArrayList<String>(Arrays.asList(strings));
@@ -97,7 +97,9 @@ public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
 			// System.out.print(names.get(i).toString() + ":"
 			// + table.getValueAt(row, i).toString() + "\n");
 			// }
-			name = table.getValueAt(row, 0).toString();dataShowUpdate(tempFrame.p1);
+			// name = table.getValueAt(row,
+			// 0).toString();dataShowUpdate(tempFrame.p1);
+			tempFrame.dataShow(tempFrame.p1);
 			System.out.println();
 		}
 
