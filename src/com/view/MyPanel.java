@@ -1,4 +1,4 @@
-package ShoppingMall;
+package com.view;
 
 import javax.swing.JPanel;
 

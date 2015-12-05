@@ -1,4 +1,4 @@
-package ShoppingMall;
+package com.view;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
 		}
 
 		model.TableInit(model, 400, 600, this);
-		// dataShow(p1);
+		dataShow(p1);
 	}
 
 	JLabel l1, l2, l3, l4;
@@ -68,15 +68,20 @@ public class MainFrame extends JFrame {
 		tempPanel.add(l2);
 		tempPanel.add(l3);
 		tempPanel.add(l4);
+		tempPanel.updateUI();
 	}
 
-	public void dataShowUpdate(JPanel tempPanel) {
-		System.out.println("ok");
+	public void dataShowUpdate(JPanel tempPanel, String saleName, String kind,
+			int price, int number) {
+		this.saleName = saleName;
+		this.kind = kind;
+		this.price = price;
+		this.number = number;
 		tempPanel.remove(l1);
 		tempPanel.remove(l2);
 		tempPanel.remove(l3);
 		tempPanel.remove(l4);
-		// dataShow(tempPanel);
+		dataShow(tempPanel);
 	}
 
 	JPanel p1, p2, p3, p4;

@@ -1,4 +1,4 @@
-package ShoppingMall;
+package com.view;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

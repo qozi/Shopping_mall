@@ -1,4 +1,4 @@
-package ShoppingMall;
+package com.view;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
