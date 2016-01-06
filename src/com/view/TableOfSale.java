@@ -13,9 +13,11 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import com.dao.GoodsDao;
+
 public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
 	private Vector<String> names = new Vector<String>();// 定义动态集合存放列名
-	private Vector<Object> rows; // 定义动态集合存放每一行的数据，定义为Object类，因为里面存放的不止一个类型
+	// private Vector<Object> rows; // 定义动态集合存放每一行的数据，定义为Object类，因为里面存放的不止一个类型
 	private Vector<Vector<Object>> data = new Vector<Vector<Object>>();// 定义动态集合存放行数据
 	private MainFrame tempFrame;
 
@@ -43,13 +45,13 @@ public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
 		names.add(string);
 	}
 
-	/*
-	 * public void addNames(int index,String string){ names.add(index, string);
-	 * }
-	 */
+	public void addData(Vector<Vector<Object>> data) {// 设置行数据的方法，每次添加到表格的末尾
+		this.data.addAll(data);
+		System.out.println(this.data);
+	}
 
 	public void addData(Object[] objects) {// 设置行数据的方法，每次添加到表格的末尾
-		rows = new Vector<Object>();// 由于Vector是线程同步的，所以每次都要新new一个Vector来储存新的数据
+		Vector<Object> rows = new Vector<Object>();// 由于Vector是线程同步的，所以每次都要新new一个Vector来储存新的数据
 		Collection<Object> c = new Vector<Object>(Arrays.asList(objects));
 		rows.addAll(c);
 		data.add(rows);
@@ -64,19 +66,10 @@ public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
 			p.y = e.getY();// 获得鼠标的Y坐标
 			int col = table.columnAtPoint(p);// 调用table的方法获得鼠标点击单元格的column值
 			int row = table.rowAtPoint(p);// 调用table的方法获得鼠标点击单元格的row值
-			System.out.println("(" + col + "," + row + ")" + "内容为："
-					+ table.getValueAt(row, col));
-			// for (int i = 0; i < table.getColumnCount(); i++) {
-			// System.out.print(names.get(i).toString() + ":"
-			// + table.getValueAt(row, i).toString() + "\n");
-			// }
-			// name = table.getValueAt(row,
-			// 0).toString();dataShowUpdate(tempFrame.p1);
 			tempFrame.dataShowUpdate(tempFrame.p1, table.getValueAt(row, 0)
 					.toString(), table.getValueAt(row, 1).toString(), Integer
 					.parseInt(table.getValueAt(row, 2).toString()), Integer
 					.parseInt(table.getValueAt(row, 3).toString()));
-			System.out.println();
 		}
 
 	}

@@ -6,6 +6,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import com.dao.GoodsDao;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Vector;
@@ -38,15 +40,7 @@ public class MainFrame extends JFrame {
 		TableOfSale model = new TableOfSale();
 		String[] names = { "商品名称", "商品种类", "商品价格", "商品数量" };
 		model.setNames(names);
-		for (int i = 0; i < 20; i++) {
-			Object[] data = { "苹果", "水果", new Integer(10), new Integer(20) };
-			model.addData(data);
-		}
-		for (int i = 0; i < 20; i++) {
-			Object[] data = { "雪梨", "水果", new Integer(50), new Integer(90) };
-			model.addData(data);
-		}
-
+		model.addData(new GoodsDao().getGoods());
 		model.TableInit(model, 400, 600, this);
 		dataShow(p1);
 	}

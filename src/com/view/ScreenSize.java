@@ -2,6 +2,7 @@ package com.view;
 
 import java.awt.Toolkit;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 public class ScreenSize {
@@ -14,6 +15,10 @@ public class ScreenSize {
 	}
 
 	public static void setCenterLocation(JFrame j) {
+		j.setLocation((SCREEN_WIDTH - j.getWidth()) / 2,
+				(SCREEN_HEIGTH - j.getHeight()) / 2);
+	}
+	public static void setCenterLocation(JDialog j) {
 		j.setLocation((SCREEN_WIDTH - j.getWidth()) / 2,
 				(SCREEN_HEIGTH - j.getHeight()) / 2);
 	}

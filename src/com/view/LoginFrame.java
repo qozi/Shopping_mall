@@ -11,6 +11,9 @@ import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.*;
 
+import com.dao.UsersDao;
+import com.pojo.Users;
+
 public class LoginFrame extends JFrame implements ActionListener {
 	// Toolkit kit = Toolkit.getDefaultToolkit();// 工具，可以获得屏幕等硬件的相关信息
 
@@ -83,7 +86,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 				new MainFrame(UserName.getText().toString());// 临时用的顶级用户
 				this.dispose();// 关闭自己
 			}
-
+			Users users = new UsersDao().getUsers(tempusername);
 			if (tempusername.equals("")) {
 				this.setTitle("用户名不能为空！");// 判断用户名输入框和密码输入框是否为空，在标题栏给出错误提示，并显示小红X在输入框的后面
 				ErrorShow(1);
@@ -91,8 +94,8 @@ public class LoginFrame extends JFrame implements ActionListener {
 				this.setTitle("密码不能为空！");
 				ErrorShow(2);
 			} else {
-				if (tempusername.equals(TempUsername)) {
-					if (temppassword.equals(TempPassword)) {
+				if (users!=null) {
+					if (temppassword.equals(users.getPassword())) {
 						new MainFrame(UserName.getText().toString());// 当用户名和密码的数据都相等的时候，就执行主窗口，并发送用户名
 						this.dispose();// 关闭自己
 					} else {
