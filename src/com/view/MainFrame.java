@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import com.dao.EmployeesDao;
 import com.dao.GoodsDao;
 
 import java.awt.*;
@@ -26,7 +27,6 @@ public class MainFrame extends JFrame {
 
 		setMenu();
 		setLable();
-		setTable();
 		// new ScreenSize().setCenterLocation(this);// 设置窗口在屏幕正中央出现
 		ScreenSize.setCenterLocation(this);
 		// setResizable(false);// 不能拖拉改变窗体大小
@@ -34,63 +34,20 @@ public class MainFrame extends JFrame {
 
 	}
 
-	Vector data, row, name;
-
-	public void setTable() {
-		TableOfSale model = new TableOfSale();
-		String[] names = { "商品名称", "商品种类", "商品价格", "商品数量" };
-		model.setNames(names);
-		model.addData(new GoodsDao().getGoods());
-		model.TableInit(model, 400, 600, this);
-		dataShow(p1);
-	}
-
-	JLabel l1, l2, l3, l4;
-	String saleName = "", kind = "";
-	int price = 0, number = 0;
-
-	public void dataShow(JPanel tempPanel) {
-		l1 = new JLabel("商品名称：" + saleName);
-		l2 = new JLabel("商品种类：" + kind);
-		l3 = new JLabel("商品价格：" + price);
-		l4 = new JLabel("商品数量：" + number);
-		l1.setBounds(420, 5, 100, 30);
-		l2.setBounds(420, 30, 100, 30);
-		l3.setBounds(420, 55, 100, 30);
-		l4.setBounds(420, 80, 100, 30);
-		tempPanel.add(l1);
-		tempPanel.add(l2);
-		tempPanel.add(l3);
-		tempPanel.add(l4);
-		tempPanel.updateUI();
-	}
-
-	public void dataShowUpdate(JPanel tempPanel, String saleName, String kind,
-			int price, int number) {
-		this.saleName = saleName;
-		this.kind = kind;
-		this.price = price;
-		this.number = number;
-		tempPanel.remove(l1);
-		tempPanel.remove(l2);
-		tempPanel.remove(l3);
-		tempPanel.remove(l4);
-		dataShow(tempPanel);
-	}
-
-	JPanel p1, p2, p3, p4;
+	JPanel p1, p2, p3, p4, p5;
 	JTabbedPane jp = new JTabbedPane(JTabbedPane.TOP);
 
 	public void setLable() {
-		p1 = new JPanel();
+		p1 = new PanelOfSale();
 		jp.add("首页", p1);
-		p1.setLayout(null);
 		p2 = new JPanel();
 		jp.add("入货记录", p2);
 		p3 = new JPanel();
 		jp.add("销售记录", p3);
 		p4 = new JPanel();
 		jp.add("数据统计", p4);
+		p5 = new PanelOfEmployees();
+		jp.add("员工管理", p5);
 		add(jp);
 	}
 

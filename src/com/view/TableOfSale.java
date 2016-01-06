@@ -14,12 +14,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import com.dao.GoodsDao;
+import com.pojo.Employees;
+import com.pojo.Goods;
 
 public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
 	private Vector<String> names = new Vector<String>();// 定义动态集合存放列名
 	// private Vector<Object> rows; // 定义动态集合存放每一行的数据，定义为Object类，因为里面存放的不止一个类型
 	private Vector<Vector<Object>> data = new Vector<Vector<Object>>();// 定义动态集合存放行数据
-	private MainFrame tempFrame;
 
 	public TableOfSale() {
 		super.setDataVector(data, names);// 调用父类的构造函数，构造DefaultTableModel实例
@@ -27,13 +28,12 @@ public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
 
 	JTable table;// new一个表格组件
 
-	public void TableInit(TableOfSale tof, int x, int y, MainFrame tempFrame) {// 初始化表格，并把表格add到p中，并定义表格的大小
+	public void TableInit(TableOfSale tof, int x, int y, JPanel tempPanel) {// 初始化表格，并把表格add到p中，并定义表格的大小
 		table = new JTable(tof);// Table构造方法中传入DefaultTableModel实例
 		table.addMouseListener(new mymouceListener());// 为表格添加鼠标监听事件
 		JScrollPane scrollpane = new JScrollPane(table);// 为表格添加滚动条
 		scrollpane.setSize(x, y);// 设置表格大小
-		tempFrame.p1.add(scrollpane).setBounds(0, 0, x, y);// 将表格添加到p中
-		this.tempFrame = tempFrame;
+		tempPanel.add(scrollpane).setBounds(0, 0, x, y);// 将表格添加到p中
 	}
 
 	public void setNames(String[] strings) {// 设置表头名称的方法，传入一个String的数组
@@ -45,9 +45,26 @@ public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
 		names.add(string);
 	}
 
-	public void addData(Vector<Vector<Object>> data) {// 设置行数据的方法，每次添加到表格的末尾
-		this.data.addAll(data);
-		System.out.println(this.data);
+	// public void addData(Vector<Vector<Object>> data) {// 设置行数据的方法，每次添加到表格的末尾
+	// this.data.addAll(data);
+	// }
+	public void addData(Vector<Goods> v) {
+		Vector<Vector<Object>> tempdata = new Vector<Vector<Object>>();
+		for (Goods g : v) {
+			Vector<Object> tempv = new Vector<Object>();
+			// tempv.add(g.getGid());
+			tempv.add(g.getGname());
+			tempv.add(g.getGkind());
+			tempv.add(g.getGnum());
+			// tempv.add(g.getGdatein());
+			// tempv.add(g.getGklong());
+			// tempv.add(g.getGfrom());
+			// tempv.add(g.getGcode());
+			// tempv.add(g.getGpricein());
+			tempv.add(g.getGpriceout());
+			tempdata.add(tempv);
+		}
+		this.data.addAll(tempdata);
 	}
 
 	public void addData(Object[] objects) {// 设置行数据的方法，每次添加到表格的末尾
@@ -66,10 +83,6 @@ public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
 			p.y = e.getY();// 获得鼠标的Y坐标
 			int col = table.columnAtPoint(p);// 调用table的方法获得鼠标点击单元格的column值
 			int row = table.rowAtPoint(p);// 调用table的方法获得鼠标点击单元格的row值
-			tempFrame.dataShowUpdate(tempFrame.p1, table.getValueAt(row, 0)
-					.toString(), table.getValueAt(row, 1).toString(), Integer
-					.parseInt(table.getValueAt(row, 2).toString()), Integer
-					.parseInt(table.getValueAt(row, 3).toString()));
 		}
 
 	}

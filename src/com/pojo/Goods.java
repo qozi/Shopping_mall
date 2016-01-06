@@ -1,5 +1,7 @@
 package com.pojo;
 
+import java.sql.Date;
+
 public class Goods {
 	private int gid;
 	private String gname;
@@ -9,8 +11,8 @@ public class Goods {
 	private int gklong;
 	private String gfrom;
 	private int gcode;
-	private int gpricein;
-	private int gpriceout;
+	private Float gpricein;
+	private Float gpriceout;
 
 	public int getGid() {
 		return gid;
@@ -76,19 +78,19 @@ public class Goods {
 		this.gcode = gcode;
 	}
 
-	public int getGpricein() {
+	public Float getGpricein() {
 		return gpricein;
 	}
 
-	public void setGpricein(int gpricein) {
+	public void setGpricein(Float gpricein) {
 		this.gpricein = gpricein;
 	}
 
-	public int getGpriceout() {
+	public Float getGpriceout() {
 		return gpriceout;
 	}
 
-	public void setGpriceout(int gpriceout) {
+	public void setGpriceout(Float gpriceout) {
 		this.gpriceout = gpriceout;
 	}
 }
