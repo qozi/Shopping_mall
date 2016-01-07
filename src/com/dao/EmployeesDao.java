@@ -34,25 +34,103 @@ public class EmployeesDao {
 		return null;
 	}
 
+	public Employees getOneEmployees(int pid) {
+		Connection connection = null;
+		try {
+			connection = SqliteConnection.getConnection();
+			String sql = "select * from Employees where pid=" + pid;
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			if (resultSet.next()) {
+				Employees employees = new Employees();
+				employees.setPid(resultSet.getInt(1));
+				employees.setPname(resultSet.getString(2));
+				employees.setPsex(resultSet.getString(3));
+				employees.setPphone(resultSet.getString(4));
+				employees.setPpositionid(resultSet.getInt(5));
+				return employees;
+			}
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
 	public void setEmployees(Employees em) {
 		Connection connection = null;
 		try {
 			connection = SqliteConnection.getConnection();
-			String sql = "insert into Employees(pid,pname,psex,pphone,pposition) values(?,?,?,?,?)";
+			String sql = "insert into Employees values(null,?,?,?,?)";
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, em.getPid());
-			statement.setString(2, em.getPname());
-			statement.setString(3, em.getPsex());
-			statement.setString(4, em.getPphone());
-			statement.setInt(5, em.getPpositionid());
+			statement.setString(1, em.getPname());
+			statement.setString(2, em.getPsex());
+			statement.setString(3, em.getPphone());
+			statement.setInt(4, em.getPpositionid());
 			statement.executeUpdate();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
-	public void delEmployees(Employees em) {
+	public void updateEmployees(Employees em) {
+		Connection connection = null;
+		try {
+			connection = SqliteConnection.getConnection();
+			String sql = "update Employees set pname=?,psex=?,pphone=?,pposition=? where pid=?";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, em.getPname());
+			statement.setString(2, em.getPsex());
+			statement.setString(3, em.getPphone());
+			statement.setInt(4, em.getPpositionid());
+			statement.setInt(5, em.getPid());
+			statement.executeUpdate();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 
+	public void delEmployees(int pid) {
+		Connection connection = null;
+		try {
+			connection = SqliteConnection.getConnection();
+			String sql = "delete from Employees where pid=?";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, pid);
+			statement.executeUpdate();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public Vector<Employees> serchEmployees(String s) {
@@ -81,6 +159,13 @@ public class EmployeesDao {
 			return temp;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

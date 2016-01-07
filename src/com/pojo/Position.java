@@ -25,4 +25,26 @@ public class Position {
 		// TODO Auto-generated method stub
 		return this.poname;
 	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return this.poid;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if (obj instanceof Position) {
+			Position position = (Position) obj;
+			if (position.poid == this.poid) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
 }

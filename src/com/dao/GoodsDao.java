@@ -36,6 +36,13 @@ public class GoodsDao {
 			return temp;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
