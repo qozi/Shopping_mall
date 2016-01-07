@@ -2,6 +2,8 @@ package com.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
@@ -15,35 +17,45 @@ import javax.swing.JTextField;
 
 import com.dao.EmployeesDao;
 import com.dao.PositionDao;
+import com.pojo.Employees;
 import com.pojo.Position;
 
-public class PanelOfEmployees extends JPanel {
+public class PanelOfEmployees extends MyWindowListener implements
+		ActionListener {
+	TableOfEmployees model;
+	JTextField field;
+	JButton serch, jb1, jb2, jb3;
+
 	PanelOfEmployees() {
 		this.setLayout(null);
-		TableOfEmployees model = new TableOfEmployees();
+		model = new TableOfEmployees();
 		String[] names = { "员工ID", "员工姓名", "员工性别", "联系电话", "员工职位" };
 		model.setNames(names);
 		model.addData(new EmployeesDao().getEmployees());
 		model.TableInit(model, 400, 400, this);
-		JButton jb1 = new JButton("新增员工");
-		JButton jb2 = new JButton("修改信息");
-		JButton jb3 = new JButton("删除信息");
-		jb1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new CreateNewEmployeerDialog();
-			}
-		});
+		field = new JTextField();
+		serch = new JButton("搜");
+		jb1 = new JButton("新增员工");
+		jb2 = new JButton("修改信息");
+		jb3 = new JButton("删除信息");
+		jb1.addActionListener(this);
+		serch.addActionListener(this);
+		this.add(field).setBounds(35, 20, 100, 25);
+		this.add(serch).setBounds(135, 20, 50, 25);
 		this.add(jb1).setBounds(35, 50, 100, 30);
 		this.add(jb2).setBounds(35, 90, 100, 30);
 		this.add(jb3).setBounds(35, 130, 100, 30);
+	}
+
+	void updateTable() {
+		model.updateTable(new EmployeesDao().getEmployees());
 	}
 
 	class CreateNewEmployeerDialog extends JDialog implements ActionListener {
 		JButton jb1, jb2;
 		JRadioButton jr1, jr2;
 		JTextField t1, t2, t4;
+		JComboBox jc;
 
 		CreateNewEmployeerDialog() {
 			this.setLayout(null);
@@ -65,7 +77,7 @@ public class PanelOfEmployees extends JPanel {
 			group.add(jr1);
 			group.add(jr2);
 			t4 = new JTextField();
-			JComboBox jc = new JComboBox(new PositionDao().getPosition());
+			jc = new JComboBox(new PositionDao().getPosition());
 			jb1 = new JButton("确认");
 			jb2 = new JButton("取消");
 			this.add(l1).setBounds(50, 30, 70, 30);
@@ -93,11 +105,33 @@ public class PanelOfEmployees extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == jb2) {
-				this.setVisible(false);
+				this.dispose();
 			} else if (e.getSource() == jb1) {
-				Position p = new Position();
-				System.out.println(t1.getText().trim());
+				Employees em = new Employees();
+				em.setPid(Integer.parseInt(t1.getText()));
+				em.setPname(t2.getText().trim());
+				em.setPsex(jr1.isSelected() ? "男" : "女");
+				em.setPphone(t4.getText().trim());
+				Position p = (Position) jc.getSelectedItem();
+				em.setPpositionid(p.getPoid());
+				new EmployeesDao().setEmployees(em);
+				this.dispose();
 			}
+		}
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		updateTable();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == serch) {
+			model.updateTable(new EmployeesDao().serchEmployees(field.getText().trim()));
+		} else if (e.getSource() == jb1) {
+			CreateNewEmployeerDialog cned = new CreateNewEmployeerDialog();
+			cned.addWindowListener(this);
 		}
 	}
 }

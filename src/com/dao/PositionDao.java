@@ -1,6 +1,7 @@
 package com.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,11 +11,11 @@ import com.pojo.Employees;
 import com.pojo.Position;
 
 public class PositionDao {
-	public Vector<Position> getPosition(){
+	public Vector<Position> getPosition() {
 		Connection connection = null;
 		try {
 			connection = SqliteConnection.getConnection();
-			String sql = "select * from EmployeeAndPosition order by pid";
+			String sql = "select * from Position order by poid";
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(sql);
 			Vector<Position> temp = new Vector<Position>();

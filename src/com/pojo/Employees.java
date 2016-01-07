@@ -7,6 +7,15 @@ public class Employees {
 	private String psex;
 	private String pphone;
 	private String pposition;
+	private int ppositionid;
+
+	public int getPpositionid() {
+		return ppositionid;
+	}
+
+	public void setPpositionid(int ppositionid) {
+		this.ppositionid = ppositionid;
+	}
 
 	public int getPid() {
 		return pid;

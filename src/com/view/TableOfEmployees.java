@@ -60,6 +60,12 @@ public class TableOfEmployees extends DefaultTableModel {
 		}
 		this.data.addAll(tempdata);
 	}
+	
+	public void updateTable(Vector<Employees> v){
+		data.removeAllElements();
+		addData(v);
+		table.updateUI();
+	}
 
 	@Override
 	public boolean isCellEditable(int row, int column) {// 让表格不可被编辑
