@@ -1,6 +1,7 @@
 package com.view;
 
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import javax.swing.table.TableColumn;
 import com.pojo.Buy;
 import com.pojo.Employees;
 import com.pojo.Goods;
-import com.view.TableOfSale.mymouceListener;
+import com.view.TableOfGoods.mymouceListener;
 
 public class TableOfBuy extends DefaultTableModel {
 	private Vector<String> names = new Vector<String>();// 定义动态集合存放列名
@@ -40,6 +41,19 @@ public class TableOfBuy extends DefaultTableModel {
 		JScrollPane scrollpane = new JScrollPane(table);// 为表格添加滚动条
 		scrollpane.setSize(x, y);// 设置表格大小
 		tempPanel.add(scrollpane).setBounds(0, 0, x, y);// 将表格添加到p中
+
+		table.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Point p = new Point();
+				p.x = e.getX();
+				p.y = e.getY();
+				PanelOfBuy pob = (PanelOfBuy)tempPanel;
+				pob.setSelectRow((int)table.getValueAt(table.rowAtPoint(p), 0));
+			}
+
+		});
 	}
 
 	public void setColumnLook() {
@@ -106,9 +120,5 @@ public class TableOfBuy extends DefaultTableModel {
 		Collection<Object> c = new Vector<Object>(Arrays.asList(objects));
 		rows.addAll(c);
 		data.add(rows);
-	}
-
-	public void delData() {
-
 	}
 }

@@ -1,18 +1,36 @@
 package com.pojo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Goods {
 	private int gid;
 	private String gname;
-	private String gkind;
+	private int gkind;
+	private String gkindname;
 	private int gnum;
-	private String gdatein;
+	private Date gdatein;
 	private int gklong;
-	private String gfrom;
+	private int gfrom;
+	private String gfromname;
 	private int gcode;
 	private Float gpricein;
 	private Float gpriceout;
+
+	public String getGkindname() {
+		return gkindname;
+	}
+
+	public void setGkindname(String gkindname) {
+		this.gkindname = gkindname;
+	}
+
+	public String getGfromname() {
+		return gfromname;
+	}
+
+	public void setGfromname(String gfromname) {
+		this.gfromname = gfromname;
+	}
 
 	public int getGid() {
 		return gid;
@@ -30,11 +48,11 @@ public class Goods {
 		this.gname = gname;
 	}
 
-	public String getGkind() {
+	public int getGkind() {
 		return gkind;
 	}
 
-	public void setGkind(String gkind) {
+	public void setGkind(int gkind) {
 		this.gkind = gkind;
 	}
 
@@ -46,11 +64,11 @@ public class Goods {
 		this.gnum = gnum;
 	}
 
-	public String getGdatein() {
+	public Date getGdatein() {
 		return gdatein;
 	}
 
-	public void setGdatein(String gdatein) {
+	public void setGdatein(Date gdatein) {
 		this.gdatein = gdatein;
 	}
 
@@ -62,11 +80,11 @@ public class Goods {
 		this.gklong = gklong;
 	}
 
-	public String getGfrom() {
+	public int getGfrom() {
 		return gfrom;
 	}
 
-	public void setGfrom(String gfrom) {
+	public void setGfrom(int gfrom) {
 		this.gfrom = gfrom;
 	}
 

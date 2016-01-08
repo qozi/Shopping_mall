@@ -92,6 +92,5 @@ public class MainFrame extends JFrame {
 				new PasswordChange(Username);
 			}
 		}
-
 	}
 }

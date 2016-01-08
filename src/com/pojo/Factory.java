@@ -44,7 +44,7 @@ public class Factory {
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		if (obj instanceof Position) {
+		if (obj instanceof Factory) {
 			Factory factory = (Factory) obj;
 			if (factory.fid == this.fid) {
 				return true;

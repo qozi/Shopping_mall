@@ -35,7 +35,7 @@ public class Kind {
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		if (obj instanceof Position) {
+		if (obj instanceof Kind) {
 			Kind kind = (Kind) obj;
 			if (kind.kid == this.kid) {
 				return true;

@@ -13,7 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.pojo.Employees;
-import com.view.TableOfSale.mymouceListener;
+import com.view.TableOfGoods.mymouceListener;
 
 public class TableOfEmployees extends DefaultTableModel {
 	private Vector<String> names = new Vector<String>();// 定义动态集合存放列名

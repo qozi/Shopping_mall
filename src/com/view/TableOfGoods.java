@@ -17,18 +17,18 @@ import com.dao.GoodsDao;
 import com.pojo.Employees;
 import com.pojo.Goods;
 
-public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
+public class TableOfGoods extends DefaultTableModel {// 从DefaultTableModel继承
 	private Vector<String> names = new Vector<String>();// 定义动态集合存放列名
 	// private Vector<Object> rows; // 定义动态集合存放每一行的数据，定义为Object类，因为里面存放的不止一个类型
 	private Vector<Vector<Object>> data = new Vector<Vector<Object>>();// 定义动态集合存放行数据
 
-	public TableOfSale() {
+	public TableOfGoods() {
 		super.setDataVector(data, names);// 调用父类的构造函数，构造DefaultTableModel实例
 	}
 
 	JTable table;// new一个表格组件
 
-	public void TableInit(TableOfSale tof, int x, int y, JPanel tempPanel) {// 初始化表格，并把表格add到p中，并定义表格的大小
+	public void TableInit(TableOfGoods tof, int x, int y, JPanel tempPanel) {// 初始化表格，并把表格add到p中，并定义表格的大小
 		table = new JTable(tof);// Table构造方法中传入DefaultTableModel实例
 		table.addMouseListener(new mymouceListener());// 为表格添加鼠标监听事件
 		JScrollPane scrollpane = new JScrollPane(table);// 为表格添加滚动条
@@ -52,26 +52,19 @@ public class TableOfSale extends DefaultTableModel {// 从DefaultTableModel继承
 		Vector<Vector<Object>> tempdata = new Vector<Vector<Object>>();
 		for (Goods g : v) {
 			Vector<Object> tempv = new Vector<Object>();
-			// tempv.add(g.getGid());
 			tempv.add(g.getGname());
-			tempv.add(g.getGkind());
+			tempv.add(g.getGkindname());
 			tempv.add(g.getGnum());
-			// tempv.add(g.getGdatein());
-			// tempv.add(g.getGklong());
-			// tempv.add(g.getGfrom());
-			// tempv.add(g.getGcode());
-			// tempv.add(g.getGpricein());
 			tempv.add(g.getGpriceout());
 			tempdata.add(tempv);
 		}
 		this.data.addAll(tempdata);
 	}
 
-	public void addData(Object[] objects) {// 设置行数据的方法，每次添加到表格的末尾
-		Vector<Object> rows = new Vector<Object>();// 由于Vector是线程同步的，所以每次都要新new一个Vector来储存新的数据
-		Collection<Object> c = new Vector<Object>(Arrays.asList(objects));
-		rows.addAll(c);
-		data.add(rows);
+	public void updateTable(Vector<Goods> v) {
+		data.removeAllElements();
+		addData(v);
+		table.updateUI();
 	}
 
 	class mymouceListener extends MyMouceListener {// 继承自鼠标监听接口的实现类，重写鼠标点击事件的方法
