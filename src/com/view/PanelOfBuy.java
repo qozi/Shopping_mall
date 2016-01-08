@@ -194,7 +194,7 @@ public class PanelOfBuy extends MyWindowListener implements ActionListener {
 		goods.setGpricein(Float.parseFloat(t8.getText().trim()));
 		goods.setGpriceout(Float.parseFloat(t9.getText().trim()));
 		new GoodsDao().updateGoods(goods);
-		PanelOfSale.updateTableOfSale();
+		PanelOfGoods.updateTableOfSale();
 
 		Date date = new Date();
 		String[] time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
@@ -235,7 +235,7 @@ public class PanelOfBuy extends MyWindowListener implements ActionListener {
 		goods.setGpricein(Float.parseFloat(t8.getText().trim()));
 		goods.setGpriceout(Float.parseFloat(t9.getText().trim()));
 		new GoodsDao().setGoods(goods);
-		PanelOfSale.updateTableOfSale();
+		PanelOfGoods.updateTableOfSale();
 
 		Date date = new Date();
 		String[] time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")

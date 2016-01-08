@@ -38,11 +38,11 @@ public class MainFrame extends JFrame {
 	JTabbedPane jp = new JTabbedPane(JTabbedPane.TOP);
 
 	public void setLable() {
-		p1 = new PanelOfSale();
+		p1 = new PanelOfGoods();
 		jp.add("首页", p1);
 		p2 = new PanelOfBuy();
 		jp.add("入货", p2);
-		p3 = new JPanel();
+		p3 = new PanelOfSale();
 		jp.add("销售记录", p3);
 		p4 = new JPanel();
 		jp.add("数据统计", p4);
