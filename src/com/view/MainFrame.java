@@ -40,8 +40,8 @@ public class MainFrame extends JFrame {
 	public void setLable() {
 		p1 = new PanelOfSale();
 		jp.add("首页", p1);
-		p2 = new JPanel();
-		jp.add("入货记录", p2);
+		p2 = new PanelOfBuy();
+		jp.add("入货", p2);
 		p3 = new JPanel();
 		jp.add("销售记录", p3);
 		p4 = new JPanel();

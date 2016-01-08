@@ -7,23 +7,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
-import com.pojo.Employees;
-import com.pojo.Position;
+import com.pojo.Factory;
 
-public class PositionDao {
-	public Vector<Position> getPosition() {
+public class FactoryDao {
+	public Vector<Factory> getFactory() {
 		Connection connection = null;
 		try {
 			connection = SqliteConnection.getConnection();
-			String sql = "select * from Position order by poid";
+			String sql = "select * from Factory order by fid";
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(sql);
-			Vector<Position> temp = new Vector<Position>();
+			Vector<Factory> temp = new Vector<Factory>();
 			while (resultSet.next()) {
-				Position position = new Position();
-				position.setPoid(resultSet.getInt(1));
-				position.setPoname(resultSet.getString(2));
-				temp.add(position);
+				Factory factory = new Factory();
+				factory.setFid(resultSet.getInt(1));
+				factory.setFname(resultSet.getString(2));
+				factory.setFphone(resultSet.getString(3));
+				temp.add(factory);
 			}
 			return temp;
 		} catch (SQLException e) {
@@ -38,18 +38,19 @@ public class PositionDao {
 		return null;
 	}
 	
-	public Position getOnePosition(int poid) {
+	public Factory getOneFactory(int fid) {
 		Connection connection = null;
 		try {
 			connection = SqliteConnection.getConnection();
-			String sql = "select * from Position where poid=" + poid;
+			String sql = "select * from Factory where fid=" + fid;
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(sql);
 			if (resultSet.next()) {
-				Position position = new Position();
-				position.setPoid(resultSet.getInt(1));
-				position.setPoname(resultSet.getString(2));
-				return position;
+				Factory factory = new Factory();
+				factory.setFid(resultSet.getInt(1));
+				factory.setFname(resultSet.getString(2));
+				factory.setFphone(resultSet.getString(3));
+				return factory;
 			}
 			statement.close();
 		} catch (SQLException e) {
@@ -58,20 +59,20 @@ public class PositionDao {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return null;
 	}
 	
-	public void setPosition(Position po) {
+	public void setFactory(Factory fa) {
 		Connection connection = null;
 		try {
 			connection = SqliteConnection.getConnection();
-			String sql = "insert into Position values(null,?)";
+			String sql = "insert into Factory values(null,?,?)";
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, po.getPoname());
+			statement.setString(1, fa.getFname());
+			statement.setString(2, fa.getFphone());
 			statement.executeUpdate();
 			statement.close();
 		} catch (SQLException e) {
@@ -85,14 +86,15 @@ public class PositionDao {
 		}
 	}
 	
-	public void updatePosition(Position po) {
+	public void updateFactory(Factory fa) {
 		Connection connection = null;
 		try {
 			connection = SqliteConnection.getConnection();
-			String sql = "update Position set poname=? where poid=?";
+			String sql = "update Factory set fname=?,fphone=? where fid=?";
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, po.getPoname());
-			statement.setInt(2, po.getPoid());
+			statement.setString(1, fa.getFname());
+			statement.setString(2, fa.getFphone());
+			statement.setInt(3, fa.getFid());
 			statement.executeUpdate();
 			statement.close();
 		} catch (SQLException e) {
@@ -101,7 +103,25 @@ public class PositionDao {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	public void delKind(int fid){
+		Connection connection = null;
+		try {
+			connection = SqliteConnection.getConnection();
+			String sql = "delete from Factory where fid=?";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, fid);
+			statement.executeUpdate();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				connection.close();
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}

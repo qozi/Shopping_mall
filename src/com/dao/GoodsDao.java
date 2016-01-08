@@ -15,7 +15,7 @@ public class GoodsDao {
 		Connection connection = null;
 		try {
 			connection = SqliteConnection.getConnection();
-			String sql = "select * from Goods order by gid";
+			String sql = "select * from GoodsAndFactoryAndKind order by gid";
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(sql);
 			Vector<Goods> temp = new Vector<Goods>();

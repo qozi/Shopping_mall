@@ -93,6 +93,15 @@ public class PanelOfEmployees extends MyWindowListener implements
 		}else if(e.getSource()==jb4){
 			CreateNewDepartmentDialog cndd = new CreateNewDepartmentDialog();
 			cndd.addWindowListener(this);
+		}else if(e.getSource()==jb5){
+			if (model_Department.table.getSelectedRow() < 0) {
+				System.out.println("请选择一行！");
+			} else {
+				UpdateDepartmentDialog ued = new UpdateDepartmentDialog(
+						(int) model_Department.getValueAt(
+								model_Department.table.getSelectedRow(), 0));
+				ued.addWindowListener(this);
+			}
 		}
 	}
 
@@ -114,12 +123,10 @@ public class PanelOfEmployees extends MyWindowListener implements
 			this.setSize(350, 500);
 			ScreenSize.setCenterLocation(this);
 
-			// JLabel l1 = new JLabel("员工   ID");
 			JLabel l2 = new JLabel("员工姓名");
 			JLabel l3 = new JLabel("员工性别");
 			JLabel l4 = new JLabel("员工电话");
 			JLabel l5 = new JLabel("员工职位");
-			// t1 = new JTextField();
 			t2 = new JTextField();
 			jr1 = new JRadioButton("男");
 			jr2 = new JRadioButton("女");
@@ -130,12 +137,10 @@ public class PanelOfEmployees extends MyWindowListener implements
 			jc = new JComboBox(new PositionDao().getPosition());
 			jb1 = new JButton("确认");
 			jb2 = new JButton("取消");
-			// this.add(l1).setBounds(50, 30, 70, 30);
 			this.add(l2).setBounds(50, 70, 70, 30);
 			this.add(l3).setBounds(50, 110, 70, 30);
 			this.add(l4).setBounds(50, 150, 70, 30);
 			this.add(l5).setBounds(50, 190, 70, 30);
-			// this.add(t1).setBounds(140, 35, 100, 20);
 			this.add(t2).setBounds(140, 75, 100, 20);
 			this.add(jr1).setBounds(140, 115, 50, 20);
 			this.add(jr2).setBounds(190, 115, 50, 20);
@@ -225,7 +230,6 @@ public class PanelOfEmployees extends MyWindowListener implements
 
 			jb1.addActionListener(this);
 			jb2.addActionListener(this);
-			jb3.addActionListener(this);
 
 			setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			this.setVisible(true);
@@ -285,6 +289,50 @@ public class PanelOfEmployees extends MyWindowListener implements
 				p.setPoid(0);
 				p.setPoname(t2.getText().trim());
 				new PositionDao().setPosition(p);
+				this.dispose();
+			}
+		}
+	}
+	
+	class UpdateDepartmentDialog extends JDialog implements ActionListener {
+		JButton jb1, jb2;
+		JTextField t2;
+		int poid;
+
+		UpdateDepartmentDialog(int poid) {
+			this.poid = poid;
+			Position position = new PositionDao().getOnePosition(poid);
+			this.setLayout(null);
+			this.setModal(true);
+			this.setTitle("新增部门");
+			this.setSize(300, 170);
+			ScreenSize.setCenterLocation(this);
+
+			JLabel l2 = new JLabel("员工姓名");
+			t2 = new JTextField(position.getPoname());
+			jb1 = new JButton("确认");
+			jb2 = new JButton("取消");
+			this.add(l2).setBounds(50, 30, 70, 30);
+			this.add(t2).setBounds(140, 35, 100, 20);
+			this.add(jb1).setBounds(75, 80, 70, 30);
+			this.add(jb2).setBounds(155, 80, 70, 30);
+
+			jb1.addActionListener(this);
+			jb2.addActionListener(this);
+
+			setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			this.setVisible(true);
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == jb2) {
+				this.dispose();
+			} else if (e.getSource() == jb1) {
+				Position position = new Position();
+				position.setPoid(poid);
+				position.setPoname(t2.getText().trim());
+				new PositionDao().updatePosition(position);
 				this.dispose();
 			}
 		}
