@@ -8,6 +8,7 @@ import javax.swing.table.TableColumnModel;
 
 import com.dao.EmployeesDao;
 import com.dao.GoodsDao;
+import com.dao.SaleDao;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -22,7 +23,7 @@ public class MainFrame extends JFrame {
 		Username = username;
 		setTitle("超市后台管理系统  v" + Bnum + "   登录帐号：" + Username);
 		// new ScreenSize().setConstSize(this);// 设置窗口按照分辨率等比例缩放
-		setSize(800, 700);
+		setSize(950, 900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setMenu();
@@ -31,6 +32,23 @@ public class MainFrame extends JFrame {
 		ScreenSize.setCenterLocation(this);
 		// setResizable(false);// 不能拖拉改变窗体大小
 		setVisible(true);
+		
+		new Thread() {
+			@Override
+			public void run() {
+				while(true){
+					PanelOfGoods panelOfGoods = (PanelOfGoods)p1;
+					panelOfGoods.model.updateTable(new GoodsDao().getGoods());
+					PanelOfSale panelOfSale = (PanelOfSale)p3;
+					panelOfSale.model.updateTable(new SaleDao().getSale());
+					try {
+						sleep(5000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}.start();
 
 	}
 

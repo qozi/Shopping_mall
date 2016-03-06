@@ -36,20 +36,9 @@ public class TableOfSale extends DefaultTableModel {
 		setColumnLook();
 		JScrollPane scrollpane = new JScrollPane(table);// 为表格添加滚动条
 		scrollpane.setSize(x, y);// 设置表格大小
-		tempPanel.add(scrollpane).setBounds(90, 50, x, y);// 将表格添加到p中
+		tempPanel.add(scrollpane).setBounds(120, 50, x, y);// 将表格添加到p中
+		table.setRowHeight(50);
 
-		// table.addMouseListener(new MouseAdapter() {
-		//
-		// @Override
-		// public void mouseClicked(MouseEvent e) {
-		// Point p = new Point();
-		// p.x = e.getX();
-		// p.y = e.getY();
-		// PanelOfBuy pob = (PanelOfBuy)tempPanel;
-		// pob.setSelectRow((int)table.getValueAt(table.rowAtPoint(p), 0));
-		// }
-		//
-		// });
 	}
 
 	public void setColumnLook() {
@@ -58,15 +47,16 @@ public class TableOfSale extends DefaultTableModel {
 		table.setDefaultRenderer(Object.class, renderer);
 		TableColumn column;
 		column = table.getColumnModel().getColumn(0);
+		column.setResizable(false);
 		column.setPreferredWidth(55);
 		column.setMaxWidth(55);
 		column.setMinWidth(55);
 		column = table.getColumnModel().getColumn(1);
-		column.setPreferredWidth(55);
-		column.setMaxWidth(55);
-		column.setMinWidth(55);
+		column.setPreferredWidth(130);
+		column.setMaxWidth(130);
+		column.setMinWidth(130);
 		column = table.getColumnModel().getColumn(2);
-		column.setPreferredWidth(150);
+		column.setPreferredWidth(130);
 		column.setMaxWidth(130);
 		column.setMinWidth(130);
 		column = table.getColumnModel().getColumn(3);
@@ -89,11 +79,12 @@ public class TableOfSale extends DefaultTableModel {
 		for (Sale s : v) {
 			Vector<Object> tempv = new Vector<Object>();
 			tempv.add(s.getSid());
-			tempv.add(s.getSprice());
+			tempv.add(s.getSgname());
 			tempv.add(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(s
 					.getSdatetime()));
 			tempv.add(s.getSnum());
-			tempv.add(s.getSgname());
+			tempv.add(s.getSprice());
+			tempv.add(s.getSnum() * s.getSprice());
 			tempdata.add(tempv);
 		}
 		this.data.addAll(tempdata);

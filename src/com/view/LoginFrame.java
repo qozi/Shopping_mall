@@ -39,7 +39,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 		JAcharge.setForeground(Color.RED);// 设置小X前景色为红色
 		JAcharge.setFont(new Font(Font.DIALOG, Font.BOLD, 30));// 设置小X的大小（即设置字体属性，第三个数字为字体大小）
 		UserName = new JTextField("+0");// 用户名输入框（+0为测试用顶级帐号，实用应删除）
-		PassWord = new JTextField();// 密码输入框
+		PassWord = new JPasswordField();// 密码输入框
 		Yes = new JButton("确认");// 确认按钮
 		No = new JButton("取消");// 取消按钮
 		c.add(JAusername).setBounds(60, 20, 60, 16);// 以下为设置各个界面元素的位置
@@ -94,7 +94,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 				this.setTitle("密码不能为空！");
 				ErrorShow(2);
 			} else {
-				if (users!=null) {
+				if (users != null) {
 					if (temppassword.equals(users.getPassword())) {
 						new MainFrame(UserName.getText().toString());// 当用户名和密码的数据都相等的时候，就执行主窗口，并发送用户名
 						this.dispose();// 关闭自己

@@ -9,8 +9,10 @@ import javax.swing.JDialog;
 public class DialogOfNumber extends JDialog implements ActionListener {
 	JButton jb1;
 	MainFrame frame;
+	int flag = 0;
 
-	public DialogOfNumber(MainFrame frame) {
+	public DialogOfNumber(MainFrame frame, int flag) {
+		this.flag = flag;
 		this.frame = frame;
 		setTitle("ÊýÁ¿");
 		setLayout(null);
@@ -29,7 +31,11 @@ public class DialogOfNumber extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == jb1) {
-			frame.num = 10;
+			if (flag == 1) {
+				frame.num1 = 10;
+			} else if (flag == 2) {
+				frame.num2 = 10;
+			}
 			this.dispose();
 		}
 	}

@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import com.dao.GoodsDao;
+import com.dao.KindDao;
 import com.pojo.Employees;
 import com.pojo.Goods;
 import com.view.PanelOfBuy;
@@ -31,6 +32,7 @@ public class TableOfGoods extends DefaultTableModel {// 从DefaultTableModel继承
 	}
 
 	JTable table;// new一个表格组件
+	int row;
 
 	public void TableInit(TableOfGoods tof, int x, int y, JPanel tempPanel) {// 初始化表格，并把表格add到p中，并定义表格的大小
 		table = new JTable(tof);// Table构造方法中传入DefaultTableModel实例
@@ -51,37 +53,15 @@ public class TableOfGoods extends DefaultTableModel {// 从DefaultTableModel继承
 				Point p = new Point();
 				p.x = e.getX();
 				p.y = e.getY();
+				row = table.rowAtPoint(p);
 				PanelOfGoods pog = (PanelOfGoods) tempPanel;
 				if (e.getButton() == 1) {
-					pog.setSelectRow(
-							(int) table.getValueAt(table.rowAtPoint(p), 0), 0);
+					pog.setSelectRow((int) table.getValueAt(row, 0), 0);
 				} else if (e.getButton() == 3) {
-					table.setRowSelectionInterval(table.rowAtPoint(p),
-							table.rowAtPoint(p));
-					pog.setSelectRow(
-							(int) table.getValueAt(table.rowAtPoint(p), 0), 1);
+					table.setRowSelectionInterval(row, row);
+					pog.setSelectRow((int) table.getValueAt(row, 0), 1);
 				}
 			}
-
-			// @Override
-			// public void mouseSingleClicked(MouseEvent e) {
-			// Point p = new Point();
-			// p.x = e.getX();
-			// p.y = e.getY();
-			// PanelOfGoods pog = (PanelOfGoods) tempPanel;
-			// pog.setSelectRow(
-			// (int) table.getValueAt(table.rowAtPoint(p), 0), 0);
-			// }
-			//
-			// @Override
-			// public void mouseDoubleClicked(MouseEvent e) {
-			// Point p = new Point();
-			// p.x = e.getX();
-			// p.y = e.getY();
-			// PanelOfGoods pog = (PanelOfGoods) tempPanel;
-			// pog.setSelectRow(
-			// (int) table.getValueAt(table.rowAtPoint(p), 0), 1);
-			// }
 		});
 	}
 
@@ -94,9 +74,6 @@ public class TableOfGoods extends DefaultTableModel {// 从DefaultTableModel继承
 		names.add(string);
 	}
 
-	// public void addData(Vector<Vector<Object>> data) {// 设置行数据的方法，每次添加到表格的末尾
-	// this.data.addAll(data);
-	// }
 	public void addData(Vector<Goods> v) {
 		Vector<Vector<Object>> tempdata = new Vector<Vector<Object>>();
 		for (Goods g : v) {
@@ -111,9 +88,33 @@ public class TableOfGoods extends DefaultTableModel {// 从DefaultTableModel继承
 		this.data.addAll(tempdata);
 	}
 
+	public void addData(int gid, int num) {// 设置行数据的方法，每次添加到表格的末尾
+		for (Vector<Object> v : data) {
+			int g = (Integer) v.get(0);
+			int i = (Integer) v.get(3);
+			if (g == gid) {
+				if (i + num < 0) {
+					v.set(3, 0);
+				} else {
+					v.set(3, i + num);
+				}
+				table.updateUI();
+				return;
+			}
+		}
+	}
+
 	public void updateTable(Vector<Goods> v) {
 		data.removeAllElements();
 		addData(v);
+		table.updateUI();
+	}
+
+	public void updateNumber(int num) {
+		int tempInt = (Integer) data.get(row).get(3) - num;
+		Vector<Object> tempVec = (Vector<Object>) data.get(row);
+		tempVec.set(3, tempInt);
+		data.set(row, tempVec);
 		table.updateUI();
 	}
 

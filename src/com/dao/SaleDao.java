@@ -26,7 +26,7 @@ public class SaleDao {
 				s.setSprice(resultSet.getFloat(2));
 				Date tempdate = null;
 				try {
-					tempdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+					tempdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 							.parse(resultSet.getString(3));
 				} catch (ParseException e) {
 					e.printStackTrace();
@@ -56,7 +56,7 @@ public class SaleDao {
 			String sql = "insert into Sale values(null,?,?,?,?)";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setDouble(1, sa.getSprice());
-			String datetime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+			String datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 					.format(sa.getSdatetime());
 			statement.setString(2, datetime);
 			statement.setInt(3, sa.getSnum());

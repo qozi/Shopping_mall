@@ -25,20 +25,21 @@ import com.pojo.Goods;
 import com.pojo.Kind;
 
 public class PanelOfBuy extends MyWindowListener implements ActionListener {
-	JLabel j1, j2, j3, j4, j5, j6, j7, j8, j9;
-	JTextField t1, t3, t4, t5, t7, t8, t9;
+	JLabel j1, j2, j3, j4, j5, j6, j7, j8, j9, serch_l;
+	JTextField t1, t3, t4, t5, t7, t8, t9, serch_t, serch_date;
 	JComboBox jc2, jc6;
-	JButton add_kind, add_factory, yes, no;
+	JButton add_kind, add_factory, yes, no, serch_b, serch_c;
 	TableOfBuy model;
+	TableOfGoods model2;
 	static int select_row = 0;
 
 	PanelOfBuy() {
 		this.setLayout(null);
 		model = new TableOfBuy();
-		String[] names = { "入货编号", "入货价格", "入货时间", "入货数量", "货品名称" };
+		String[] names = { "入货编号", "货品名称", "入货时间", "入货数量", "价格" };
 		model.setNames(names);
 		model.addData(new BuyDao().getBuy());
-		model.TableInit(model, 400, 600, this);
+		model.TableInit(model, 400, 650, this);
 
 		j1 = new JLabel("商品名称");
 		j2 = new JLabel("商品种类");
@@ -52,7 +53,11 @@ public class PanelOfBuy extends MyWindowListener implements ActionListener {
 
 		add_kind = new JButton("+");
 		add_factory = new JButton("+");
+		serch_b = new JButton("搜");
+		serch_c = new JButton("清");
 
+		serch_t = new JTextField();
+		serch_date = new JTextField();
 		t1 = new JTextField();
 		jc2 = new JComboBox(new KindDao().getKind());
 		t3 = new JTextField();
@@ -65,38 +70,48 @@ public class PanelOfBuy extends MyWindowListener implements ActionListener {
 		yes = new JButton("确认");
 		no = new JButton("清空");
 
-		this.add(j1).setBounds(430, 30, 70, 30);
-		this.add(j2).setBounds(430, 80, 70, 30);
-		this.add(j3).setBounds(430, 130, 70, 30);
-		this.add(j4).setBounds(430, 180, 70, 30);
-		this.add(j5).setBounds(430, 230, 70, 30);
-		this.add(j6).setBounds(430, 280, 70, 30);
-		this.add(j7).setBounds(430, 330, 70, 30);
-		this.add(j8).setBounds(430, 380, 70, 30);
-		this.add(j9).setBounds(430, 430, 70, 30);
+		this.add(j1).setBounds(430, 30 + 60, 70, 30);
+		this.add(j2).setBounds(430, 80 + 60, 70, 30);
+		this.add(j3).setBounds(430, 130 + 60, 70, 30);
+		this.add(j4).setBounds(430, 180 + 60, 70, 30);
+		this.add(j5).setBounds(430, 230 + 60, 70, 30);
+		this.add(j6).setBounds(430, 280 + 60, 70, 30);
+		this.add(j7).setBounds(430, 330 + 60, 70, 30);
+		this.add(j8).setBounds(430, 380 + 60, 70, 30);
+		this.add(j9).setBounds(430, 430 + 60, 70, 30);
 
 		DateChooser chooser = DateChooser.getInstance("yyyy-MM-dd");
 		chooser.register(t4);
+		DateChooser chooser2 = DateChooser.getInstance("yyyy-MM-dd");
+		chooser2.register(serch_date);
 
-		this.add(t1).setBounds(530, 32, 140, 25);
-		this.add(jc2).setBounds(530, 82, 100, 25);
-		this.add(add_kind).setBounds(630, 82, 40, 25);
-		this.add(t3).setBounds(530, 132, 140, 25);
-		this.add(t4).setBounds(530, 182, 140, 25);
-		this.add(t5).setBounds(530, 232, 140, 25);
-		this.add(jc6).setBounds(530, 282, 100, 25);
-		this.add(add_factory).setBounds(630, 282, 40, 25);
-		this.add(t7).setBounds(530, 332, 140, 25);
-		this.add(t8).setBounds(530, 382, 140, 25);
-		this.add(t9).setBounds(530, 432, 140, 25);
+		this.add(t1).setBounds(530, 32 + 60, 140, 25);
+		this.add(jc2).setBounds(530, 82 + 60, 100, 25);
+		this.add(add_kind).setBounds(630, 82 + 60, 40, 25);
+		this.add(t3).setBounds(530, 132 + 60, 140, 25);
+		this.add(t4).setBounds(530, 182 + 60, 140, 25);
+		this.add(t5).setBounds(530, 232 + 60, 140, 25);
+		this.add(jc6).setBounds(530, 282 + 60, 100, 25);
+		this.add(add_factory).setBounds(630, 282 + 60, 40, 25);
+		this.add(t7).setBounds(530, 332 + 60, 140, 25);
+		this.add(t8).setBounds(530, 382 + 60, 140, 25);
+		this.add(t9).setBounds(530, 432 + 60, 140, 25);
 
-		this.add(yes).setBounds(430, 500, 70, 30);
-		this.add(no).setBounds(530, 500, 70, 30);
+		this.add(serch_t).setBounds(30, 20, 100, 25);
+		this.add(serch_b).setBounds(250, 20, 60, 25);
+		this.add(serch_c).setBounds(320, 20, 60, 25);
+		this.add(serch_date).setBounds(150, 20, 80, 25);
+		serch_date.setText("");
+
+		this.add(yes).setBounds(430, 500 + 60, 70, 30);
+		this.add(no).setBounds(530, 500 + 60, 70, 30);
 
 		add_kind.addActionListener(this);
 		add_factory.addActionListener(this);
 		yes.addActionListener(this);
 		no.addActionListener(this);
+		serch_b.addActionListener(this);
+		serch_c.addActionListener(this);
 
 		clearAll();
 	}
@@ -120,13 +135,25 @@ public class PanelOfBuy extends MyWindowListener implements ActionListener {
 		jc6.setSelectedItem(tempfactory);
 		this.updateUI();
 	}
-	
-	void setSelectRow(int bid){
+
+	void setSelectRow(int bid) {
 		int gid = new BuyDao().getOneBuy(bid);
 		Goods g = new GoodsDao().getOneGoods(gid);
 		t1.setText(g.getGname());
 		jc2.setSelectedItem(new KindDao().getOneKind(g.getGkind()));
 		t4.setText(new SimpleDateFormat("yyyy-MM-dd").format(g.getGdatein()));
+		t5.setText(Integer.toString(g.getGklong()));
+		jc6.setSelectedItem(new FactoryDao().getOneFactory(g.getGfrom()));
+		t7.setText(Integer.toString(g.getGcode()));
+		t8.setText(Float.toString(g.getGpricein()));
+		t9.setText(Float.toString(g.getGpriceout()));
+	}
+
+	void setSelectName(int gid) {
+		Goods g = new GoodsDao().getOneGoods(gid);
+		t1.setText(g.getGname());
+		jc2.setSelectedItem(new KindDao().getOneKind(g.getGkind()));
+		t4.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		t5.setText(Integer.toString(g.getGklong()));
 		jc6.setSelectedItem(new FactoryDao().getOneFactory(g.getGfrom()));
 		t7.setText(Integer.toString(g.getGcode()));
@@ -160,6 +187,11 @@ public class PanelOfBuy extends MyWindowListener implements ActionListener {
 			}
 		} else if (e.getSource() == no) {
 			clearAll();
+		} else if (e.getSource() == serch_b) {
+			model.updateTable(new BuyDao().serchBuy(serch_t.getText().trim()));
+		} else if (e.getSource() == serch_c) {
+			serch_t.setText("");
+			model.updateTable(new BuyDao().getBuy());
 		}
 	}
 
@@ -179,11 +211,9 @@ public class PanelOfBuy extends MyWindowListener implements ActionListener {
 		goods.setGname(t1.getText().trim());
 		Kind kind = (Kind) jc2.getSelectedItem();
 		goods.setGkind(kind.getKid());
-		goods.setGnum(tempgoods.getGnum()
-				+ Integer.parseInt(t3.getText().trim()));
+		goods.setGnum(tempgoods.getGnum() + Integer.parseInt(t3.getText().trim()));
 		try {
-			goods.setGdatein(new SimpleDateFormat("yyyy-MM-dd").parse(t4
-					.getText().trim()));
+			goods.setGdatein(new SimpleDateFormat("yyyy-MM-dd").parse(t4.getText().trim()));
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
@@ -197,8 +227,7 @@ public class PanelOfBuy extends MyWindowListener implements ActionListener {
 		PanelOfGoods.updateTableOfSale();
 
 		Date date = new Date();
-		String[] time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-				.format(date).split(" ");
+		String[] time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date).split(" ");
 		String datetime = t4.getText().trim() + " " + time[1];
 		try {
 			date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datetime);
@@ -223,8 +252,7 @@ public class PanelOfBuy extends MyWindowListener implements ActionListener {
 		goods.setGkind(kind.getKid());
 		goods.setGnum(Integer.parseInt(t3.getText().trim()));
 		try {
-			goods.setGdatein(new SimpleDateFormat("yyyy-MM-dd").parse(t4
-					.getText().trim()));
+			goods.setGdatein(new SimpleDateFormat("yyyy-MM-dd").parse(t4.getText().trim()));
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
@@ -238,8 +266,7 @@ public class PanelOfBuy extends MyWindowListener implements ActionListener {
 		PanelOfGoods.updateTableOfSale();
 
 		Date date = new Date();
-		String[] time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-				.format(date).split(" ");
+		String[] time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date).split(" ");
 		String datetime = t4.getText().trim() + " " + time[1];
 		try {
 			date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(datetime);

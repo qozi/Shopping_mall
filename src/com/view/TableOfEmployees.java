@@ -7,13 +7,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Vector;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.pojo.Employees;
-import com.view.TableOfGoods.mymouceListener;
 
 public class TableOfEmployees extends DefaultTableModel {
 	private Vector<String> names = new Vector<String>();// 定义动态集合存放列名
@@ -32,7 +33,11 @@ public class TableOfEmployees extends DefaultTableModel {
 		// table.addMouseListener(new mymouceListener(this));// 为表格添加鼠标监听事件
 		JScrollPane scrollpane = new JScrollPane(table);// 为表格添加滚动条
 		scrollpane.setSize(x, y);// 设置表格大小
-		tempPanel.add(scrollpane).setBounds(180, 50, x, y);// 将表格添加到p中
+		tempPanel.add(scrollpane).setBounds(30, 60, x, y);// 将表格添加到p中
+		table.setRowHeight(50);
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+		renderer.setHorizontalAlignment(JLabel.CENTER);
+		table.setDefaultRenderer(Object.class, renderer);
 	}
 
 	public void setNames(String[] strings) {// 设置表头名称的方法，传入一个String的数组

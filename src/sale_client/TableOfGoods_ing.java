@@ -34,6 +34,7 @@ public class TableOfGoods_ing extends DefaultTableModel {// ´ÓDefaultTableModel¼
 	}
 
 	JTable table;// newÒ»¸ö±í¸ñ×é¼þ
+	int row;
 
 	public void TableInit(TableOfGoods_ing tof, int x, int y, JPanel tempPanel) {// ³õÊ¼»¯±í¸ñ£¬²¢°Ñ±í¸ñaddµ½pÖÐ£¬²¢¶¨Òå±í¸ñµÄ´óÐ¡
 		table = new JTable(tof);// Table¹¹Ôì·½·¨ÖÐ´«ÈëDefaultTableModelÊµÀý
@@ -46,7 +47,24 @@ public class TableOfGoods_ing extends DefaultTableModel {// ´ÓDefaultTableModel¼
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setHorizontalAlignment(JLabel.CENTER);
 		table.setDefaultRenderer(Object.class, renderer);
+		table.addMouseListener(new MouseAdapter() {
 
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Point p = new Point();
+				p.x = e.getX();
+				p.y = e.getY();
+				row = table.rowAtPoint(p);
+				PanelOfGoods_ing pog = (PanelOfGoods_ing) tempPanel;
+				int gid = new GoodsDao().getOneGoods((String) table.getValueAt(
+						row, 0));
+				if (e.getButton() == 1) {
+					pog.setSelectRow(gid, 0);
+				} else if (e.getButton() == 3) {
+					pog.setSelectRow(gid, 1);
+				}
+			}
+		});
 	}
 
 	public void setNames(String[] strings) {// ÉèÖÃ±íÍ·Ãû³ÆµÄ·½·¨£¬´«ÈëÒ»¸öStringµÄÊý×é
@@ -63,30 +81,41 @@ public class TableOfGoods_ing extends DefaultTableModel {// ´ÓDefaultTableModel¼
 			String s = (String) v.get(0);
 			int i = (Integer) v.get(2);
 			if (s.equals(g.getGname())) {
+				if (i + num < 1) {
+					data.remove(v);
+					table.updateUI();
+					return;
+				}
 				v.set(2, i + num);
 				v.set(3, g.getGpriceout() * (i + num));
 				table.updateUI();
 				return;
 			}
 		}
-		 Vector<Object> tempv = new Vector<Object>();
-		 tempv.add(g.getGname());
-		 tempv.add(new KindDao().getOneKind(g.getGkind()));
-		 tempv.add(num);
-		 tempv.add(g.getGpriceout() * num);
-		 data.add(tempv);
-		 table.updateUI();
+		Vector<Object> tempv = new Vector<Object>();
+		tempv.add(g.getGname());
+		tempv.add(new KindDao().getOneKind(g.getGkind()));
+		tempv.add(num);
+		tempv.add(g.getGpriceout() * num);
+		data.add(tempv);
+		table.updateUI();
 	}
-	
-	public void addSale(){
+
+	public void addSale() {
 		for (Vector<Object> v : data) {
+			int gid = new GoodsDao().getOneGoods((String) v.get(0));
 			Sale s = new Sale();
-			s.setSprice((Float)v.get(3));
+			s.setSprice((Float) v.get(3));
 			s.setSdatetime(new Date());
-			s.setSnum((Integer)v.get(2));
-			s.setSgid(new GoodsDao().getOneGoods((String)v.get(0)));
+			s.setSnum((Integer) v.get(2));
+			s.setSgid(gid);
 			new SaleDao().setSale(s);
+			Goods goods = new GoodsDao().getOneGoods(gid);
+			goods.setGnum(goods.getGnum() - s.getSnum());
+			new GoodsDao().updateGoods(goods);
 		}
+		data.removeAllElements();
+		table.updateUI();
 	}
 
 	// public void addData(Vector<Goods> v) {

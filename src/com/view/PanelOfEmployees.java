@@ -33,13 +33,13 @@ public class PanelOfEmployees extends MyWindowListener implements
 		String[] names_Employees = { "员工ID", "员工姓名", "员工性别", "联系电话", "员工职位" };
 		model_Employees.setNames(names_Employees);
 		model_Employees.addData(new EmployeesDao().getEmployees());
-		model_Employees.TableInit(model_Employees, 400, 400, this);
+		model_Employees.TableInit(model_Employees, 400, 650, this);
 
 		model_Department = new TableOfDepartment();
 		String[] names_Department = { "部门ID", "部门名称" };
 		model_Department.setNames(names_Department);
 		model_Department.addData(new PositionDao().getPosition());
-		model_Department.TableInit(model_Department, 150, 400, this);
+		model_Department.TableInit(model_Department, 180, 650, this);
 
 		field = new JTextField();
 		serch = new JButton("搜");
@@ -54,12 +54,12 @@ public class PanelOfEmployees extends MyWindowListener implements
 		jb4.addActionListener(this);
 		jb5.addActionListener(this);
 		serch.addActionListener(this);
-		this.add(field).setBounds(35, 20, 100, 25);
+		this.add(field).setBounds(30, 20, 100, 25);
 		this.add(serch).setBounds(135, 20, 50, 25);
-		this.add(jb1).setBounds(35, 50, 100, 30);
-		this.add(jb2).setBounds(35, 90, 100, 30);
-		this.add(jb3).setBounds(35, 130, 100, 30);
-		this.add(jb4).setBounds(35, 170, 100, 30);
+		this.add(jb1).setBounds(460, 100, 100, 30);
+		this.add(jb2).setBounds(460, 160, 100, 30);
+		this.add(jb3).setBounds(810, 100, 100, 30);
+		this.add(jb4).setBounds(810, 160, 100, 30);
 		this.add(jb5).setBounds(35, 210, 100, 30);
 	}
 

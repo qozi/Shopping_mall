@@ -21,7 +21,6 @@ import javax.swing.table.TableColumn;
 import com.pojo.Buy;
 import com.pojo.Employees;
 import com.pojo.Goods;
-import com.view.TableOfGoods.mymouceListener;
 
 public class TableOfBuy extends DefaultTableModel {
 	private Vector<String> names = new Vector<String>();// 定义动态集合存放列名
@@ -40,8 +39,9 @@ public class TableOfBuy extends DefaultTableModel {
 		setColumnLook();
 		JScrollPane scrollpane = new JScrollPane(table);// 为表格添加滚动条
 		scrollpane.setSize(x, y);// 设置表格大小
-		tempPanel.add(scrollpane).setBounds(0, 0, x, y);// 将表格添加到p中
+		tempPanel.add(scrollpane).setBounds(-15, 60, x, y);// 将表格添加到p中
 
+		table.setRowHeight(50);
 		table.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -62,15 +62,16 @@ public class TableOfBuy extends DefaultTableModel {
 		table.setDefaultRenderer(Object.class, renderer);
 		TableColumn column;
 		column = table.getColumnModel().getColumn(0);
-		column.setPreferredWidth(55);
-		column.setMaxWidth(55);
-		column.setMinWidth(55);
+		column.setResizable(false);
+		column.setPreferredWidth(0);
+		column.setMaxWidth(0);
+		column.setMinWidth(0);
 		column = table.getColumnModel().getColumn(1);
-		column.setPreferredWidth(55);
-		column.setMaxWidth(55);
-		column.setMinWidth(55);
+		column.setPreferredWidth(130);
+		column.setMaxWidth(130);
+		column.setMinWidth(130);
 		column = table.getColumnModel().getColumn(2);
-		column.setPreferredWidth(150);
+		column.setPreferredWidth(130);
 		column.setMaxWidth(130);
 		column.setMinWidth(130);
 		column = table.getColumnModel().getColumn(3);
@@ -93,11 +94,11 @@ public class TableOfBuy extends DefaultTableModel {
 		for (Buy b : v) {
 			Vector<Object> tempv = new Vector<Object>();
 			tempv.add(b.getBid());
-			tempv.add(b.getBprice());
+			tempv.add(b.getBgname());
 			tempv.add(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(b
 					.getBdatetime()));
 			tempv.add(b.getBnum());
-			tempv.add(b.getBgname());
+			tempv.add(b.getBprice());
 			tempdata.add(tempv);
 		}
 		this.data.addAll(tempdata);
