@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.dao.BuyDao;
+import com.dao.EmployeesDao;
 import com.dao.SaleDao;
 
 public class PanelOfSale extends JPanel implements ActionListener {
@@ -57,7 +58,10 @@ public class PanelOfSale extends JPanel implements ActionListener {
 		if (e.getSource() == update) {
 			updateTableOfSale();
 		} else if (e.getSource() == serch_b) {
+			model.updateTable(new SaleDao().serchSale(serch_t.getText().trim()));
 		} else if (e.getSource() == serch_c) {
+			serch_t.setText("");
+			model.updateTable(new SaleDao().getSale());
 		}
 	}
 }

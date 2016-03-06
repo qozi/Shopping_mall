@@ -62,8 +62,6 @@ public class MainFrame extends JFrame {
 		jp.add("入货", p2);
 		p3 = new PanelOfSale();
 		jp.add("销售记录", p3);
-		p4 = new JPanel();
-		jp.add("数据统计", p4);
 		p5 = new PanelOfEmployees();
 		jp.add("员工管理", p5);
 		add(jp);

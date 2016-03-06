@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
+
+import com.pojo.Employees;
 import com.pojo.Sale;
 
 public class SaleDao {
@@ -72,6 +74,50 @@ public class SaleDao {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public Vector<Sale> serchSale(String s) {
+		Connection connection = null;
+		try {
+			connection = SqliteConnection.getConnection();
+			StringBuffer sql = new StringBuffer(
+					"select * from SaleAndGoods where ");
+			sql.append("gname like '%" + s + "%' order by gname");
+			/*sql.append("or pname like '%" + s + "%' ");
+			sql.append("or psex like '%" + s + "%' ");
+			sql.append("or pphone like '%" + s + "%' ");
+			sql.append("or poname like '%" + s + "%' order by pid");*/
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql.toString());
+			Vector<Sale> temp = new Vector<Sale>();
+			while (resultSet.next()) {
+				Sale sale = new Sale();
+				sale.setSid(resultSet.getInt(1));
+				sale.setSgname(resultSet.getString(5));
+				Date tempdate = null;
+				try {
+					tempdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+							.parse(resultSet.getString(3));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				sale.setSdatetime(tempdate);
+				sale.setSnum(Integer.parseInt(resultSet.getString(4)));
+				sale.setSprice(Float.parseFloat(resultSet.getString(2)));;
+				temp.add(sale);
+			}
+			return temp;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	public int getOneSale(int sid) {
