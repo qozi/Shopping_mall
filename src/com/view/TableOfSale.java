@@ -80,11 +80,10 @@ public class TableOfSale extends DefaultTableModel {
 			Vector<Object> tempv = new Vector<Object>();
 			tempv.add(s.getSid());
 			tempv.add(s.getSgname());
-			tempv.add(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(s
-					.getSdatetime()));
+			tempv.add(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(s.getSdatetime()));
 			tempv.add(s.getSnum());
+			tempv.add(s.getSprice() / s.getSnum());
 			tempv.add(s.getSprice());
-			tempv.add(s.getSnum() * s.getSprice());
 			tempdata.add(tempv);
 		}
 		this.data.addAll(tempdata);

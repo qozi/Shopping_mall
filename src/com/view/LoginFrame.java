@@ -38,7 +38,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 		JAcharge = new JLabel("×");// 输入错误的提示符号
 		JAcharge.setForeground(Color.RED);// 设置小X前景色为红色
 		JAcharge.setFont(new Font(Font.DIALOG, Font.BOLD, 30));// 设置小X的大小（即设置字体属性，第三个数字为字体大小）
-		UserName = new JTextField("+0");// 用户名输入框（+0为测试用顶级帐号，实用应删除）
+		UserName = new JTextField("");// 用户名输入框（+0为测试用顶级帐号，实用应删除）
 		PassWord = new JPasswordField();// 密码输入框
 		Yes = new JButton("确认");// 确认按钮
 		No = new JButton("取消");// 取消按钮
